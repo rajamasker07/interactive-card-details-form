@@ -3,5 +3,6 @@
     "next",
     "plugin:@next/next/recommended",
     "prettier"
-  ]
+  ],
+  "plugins": ["jest"]
 }
