@@ -8,7 +8,7 @@
 
 # testing
 /coverage
-/__snapshots__
+*/__snapshots__
 
 # next.js
 /.next/
