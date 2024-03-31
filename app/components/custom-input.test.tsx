@@ -582,7 +582,7 @@ describe('Custom Input Component', () => {
 
     test('should display error messsage if value is grether than current year', async () => {
 
-      const value = '1998'
+      const value = '20'
 
       await user.clear(yearFieldElm)
       await user.click(yearFieldElm)
@@ -593,7 +593,7 @@ describe('Custom Input Component', () => {
       
       await waitFor(() => {
 
-        expect(yearFieldElm.value).toEqual('1998')
+        expect(yearFieldElm.value).toEqual('20')
         expect(errorMessages).toHaveLength(1)
         expect(errorMessages[0]).toHaveTextContent('must be more than or equal to current year')
         expect(onSubmitMock).not.toHaveBeenCalled()
@@ -602,9 +602,9 @@ describe('Custom Input Component', () => {
 
     })
 
-    test('should display error if message value is less or equal to zero', async () => {
+    test('should display error if message value is equal zero', async () => {
 
-      const value = '0000'
+      const value = '00'
 
       await user.clear(yearFieldElm)
       await user.click(yearFieldElm)
@@ -615,7 +615,7 @@ describe('Custom Input Component', () => {
       
       await waitFor(() => {
 
-        expect(yearFieldElm.value).toEqual('0000')
+        expect(yearFieldElm.value).toEqual('00')
         expect(errorMessages).toHaveLength(1)
         expect(errorMessages[0]).toHaveTextContent('must be more than or equal to current year')
         expect(onSubmitMock).not.toHaveBeenCalled()
@@ -639,7 +639,7 @@ describe('Custom Input Component', () => {
 
         expect(yearFieldElm.value).toEqual('20225')
         expect(errorMessages).toHaveLength(1)
-        expect(errorMessages[0]).toHaveTextContent('must be a four digit year')
+        expect(errorMessages[0]).toHaveTextContent('must be a two digit year')
         expect(onSubmitMock).not.toHaveBeenCalled()
 
       })
@@ -648,7 +648,7 @@ describe('Custom Input Component', () => {
 
     test('should display error message if value is not a number', async () => {
 
-      const value = '2O25'
+      const value = '2T'
 
       await user.clear(yearFieldElm)
       await user.click(yearFieldElm)
@@ -659,7 +659,7 @@ describe('Custom Input Component', () => {
       
       await waitFor(() => {
 
-        expect(yearFieldElm.value).toEqual('2O25')
+        expect(yearFieldElm.value).toEqual('2T')
         expect(errorMessages).toHaveLength(1)
         expect(errorMessages[0]).toHaveTextContent('only number are allowed')
         expect(onSubmitMock).not.toHaveBeenCalled()
@@ -670,7 +670,7 @@ describe('Custom Input Component', () => {
 
     test('should success validation if value is a valid year', async () => {
 
-      const value = new Date().getFullYear().toString()
+      const value = new Date().getFullYear().toString().slice(2, 4)
 
       await user.clear(yearFieldElm)
       await user.click(yearFieldElm)

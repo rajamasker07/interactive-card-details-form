@@ -134,6 +134,9 @@ export function FieldMounth({ label, register, errors }: props) {
 }
 
 export function FieldYear({ label, register, errors }: props) {
+
+  const currentYear = new Date().getFullYear().toString().slice(2, 4);
+
   return (
     <div>
       <label htmlFor={label}>{label}</label>
@@ -144,24 +147,24 @@ export function FieldYear({ label, register, errors }: props) {
             message: 'year is required'
           },
           pattern: {
-            value: /^(\d{4})$/,
+            value: /^(\d{2})$/,
             message: 'only number are allowed'
           },
           minLength: {
-            value: 4,
-            message: 'must be a four digit year'
+            value: 2,
+            message: 'must be a two digit year'
           },
           maxLength: {
-            value: 4,
-            message: 'must be a four digit year'
+            value: 2,
+            message: 'must be a two digit year'
           },
           min: {
-            value: new Date().getFullYear(),
+            value: currentYear,
             message: 'must be more than or equal to current year'
           },
         })
       }
-      defaultValue={ new Date().getFullYear() }
+      defaultValue={ currentYear }
       aria-invalid={ errors.expDate?.year ? 'true' : 'false'}
       aria-errormessage={`${label}ErrorMessage`}/>
       {
