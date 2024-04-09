@@ -3,12 +3,13 @@
 import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form'
 import { CardFormInterface } from '../utils/interfaces'
-import { convertText } from '../utils/helper'
+import { convertText, formatCardNumber } from '../utils/helper'
 
 type props = {
   label: Path<CardFormInterface>
   register: UseFormRegister<CardFormInterface>
   errors: FieldErrors<CardFormInterface>
+  name?: string
 }
 
 /**
@@ -21,10 +22,10 @@ type props = {
  * @returns React component
  */
 
-export default function FieldName({ label, register, errors }: props) {
+export default function FieldName({ label, register, errors, name }: props) {
   return (
-    <div>
-      <label htmlFor={label}>{ convertText(label)}</label>
+    <div className='flex w-full flex-col gap-1'>
+      <label htmlFor={label}>{ name ? name : convertText(label) }</label>
       <input type="text" id={label} { 
         ...register(label, {
           required: {
@@ -45,26 +46,19 @@ export default function FieldName({ label, register, errors }: props) {
           }
         })
       } 
-      aria-invalid={ errors.name ? 'true' : 'false'}
-      aria-errormessage={`${label}ErrorMessage`}/>
+      aria-invalid={errors.name ? 'true' : 'false'}
+      aria-errormessage={`${label}ErrorMessage`}
+      className='ring-1 ring-gray-400 rounded-md active:outline-purple-500 p-2'/>
       {
-        errors.name && <span id={`${label}ErrorMessage`} role='alert'>{ errors.name.message }</span>
+        errors.name && <span id={`${label}ErrorMessage`} role='alert' className='text-red-500 text-xs' >{ errors.name.message }</span>
       }
     </div>
   )
 }
 
-export function FieldCardNumber({ label, register, errors }: props) {
+export function FieldCardNumber({ label, register, errors, name }: props) {
 
   const [cardNumber, setCardNumber] = useState('')
-
-  const formatCardNumber = (value: string) => {
-
-    const formattedValue = value.replace(/\d{4}(?!\s)/g, '$& ');
-
-    return formattedValue.trim();
-
-  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     
@@ -75,8 +69,8 @@ export function FieldCardNumber({ label, register, errors }: props) {
   }
 
   return (
-    <div>
-      <label htmlFor={label}>{label}</label>
+    <div className='flex w-full flex-col gap-1'>
+      <label htmlFor={label}>{ name ? name : convertText(label) }</label>
       <input type="text" id={label} { 
         ...register(label, {
           required: {
@@ -100,18 +94,19 @@ export function FieldCardNumber({ label, register, errors }: props) {
       value={cardNumber}
       onChange={handleChange}
       aria-invalid={ errors.cardNumber ? 'true' : 'false'}
-      aria-errormessage={`${label}ErrorMessage`}/>
+      aria-errormessage={`${label}ErrorMessage`}
+      className='ring-1 ring-gray-400 rounded-md active:outline-purple-500 p-2'/>
       {
-        errors.cardNumber && <span id={`${label}ErrorMessage`} role='alert'>{ errors.cardNumber.message }</span>
+        errors.cardNumber && <span id={`${label}ErrorMessage`} role='alert' className="text-red-500 text-xs">{ errors.cardNumber.message }</span>
       }
     </div>
   )
 }
 
-export function FieldMounth({ label, register, errors }: props) {
+export function FieldMounth({ label, register, errors, name }: props) {
   return (
-    <div>
-      <label htmlFor={label}>{label}</label>
+    <div className='flex min-w-8 max-w-fit flex-col gap-1'>
+      <label htmlFor={label}>{ name ? name : convertText(label)}</label>
       <input type="text" id={label} { 
         ...register(label, {
           required: {
@@ -124,22 +119,23 @@ export function FieldMounth({ label, register, errors }: props) {
           },
         })
       }
+      aria-errormessage={`${label}ErrorMessage`}
       aria-invalid={ errors.expDate?.mounth ? 'true' : 'false'}
-      aria-errormessage={`${label}ErrorMessage`}/>
+      className='ring-1 ring-gray-400 rounded-md active:outline-purple-500 p-2'/>
       {
-        errors.expDate?.mounth && <span id={`${label}ErrorMessage`} role='alert'>{ errors.expDate.mounth.message }</span>
+        errors.expDate?.mounth && <span id={`${label}ErrorMessage`} role='alert' className="text-red-500 text-xs">{ errors.expDate.mounth.message }</span>
       }
     </div>
   )
 }
 
-export function FieldYear({ label, register, errors }: props) {
+export function FieldYear({ label, register, errors, name }: props) {
 
   const currentYear = new Date().getFullYear().toString().slice(2, 4);
 
   return (
-    <div>
-      <label htmlFor={label}>{label}</label>
+    <div className='flex min-w-8 max-w-fit flex-col gap-1'>
+      <label htmlFor={label}>{name ? name : convertText(label)}</label>
       <input type="text" id={label} { 
         ...register(label, {
           required: {
@@ -166,18 +162,19 @@ export function FieldYear({ label, register, errors }: props) {
       }
       defaultValue={ currentYear }
       aria-invalid={ errors.expDate?.year ? 'true' : 'false'}
-      aria-errormessage={`${label}ErrorMessage`}/>
+      aria-errormessage={`${label}ErrorMessage`}
+      className='ring-1 ring-gray-400 rounded-md active:outline-purple-500 p-2'/>
       {
-        errors.expDate?.year && <span id={`${label}ErrorMessage`} role='alert'>{ errors.expDate.year.message }</span>
+        errors.expDate?.year && <span id={`${label}ErrorMessage`} role='alert' className="text-red-500 text-xs">{ errors.expDate.year.message }</span>
       }
     </div>
   )
 }
 
-export function FieldCVC({ label, register, errors }: props) {
+export function FieldCVC({ label, register, errors, name }: props) {
   return (
-    <div>
-      <label htmlFor={label}>{label}</label>
+    <div className='flex min-w-24 max-w-fit flex-col gap-1'>
+      <label htmlFor={label}>{name ? name : convertText(label)}</label>
       <input type="text" id={label} { 
         ...register(label, {
           required: {
@@ -199,9 +196,10 @@ export function FieldCVC({ label, register, errors }: props) {
         })
       }
       aria-invalid={ errors.cvc ? 'true' : 'false'}
-      aria-errormessage={`${label}ErrorMessage`}/>
+      aria-errormessage={`${label}ErrorMessage`}
+      className='ring-1 ring-gray-400 rounded-md active:outline-purple-500 p-2'/>
       {
-        errors.cvc && <span id={`${label}ErrorMessage`} role='alert'>{ errors.cvc.message }</span>
+        errors.cvc && <span id={`${label}ErrorMessage`} role='alert' className="text-red-500 text-xs">{ errors.cvc.message }</span>
       }
     </div>
   )
