@@ -27,11 +27,11 @@ export default function Container() {
 
       <Form dataOnChange={dataOnChange} />
 
-      <div className='md:flex md:flex-col-reverse' >
-        <div className="relative top-10 z-[5] md:-right-10 md:max-w-96">
-          <BackCard className='place-content-end' cvc={data.cvc} />
+      <div className='md:flex md:flex-col-reverse flex flex-col relative place-items-center' >
+        <div className="relative top-10 z-[5] md:-right-10 md:max-w-96 w-fit -right-10">
+          <BackCard className='' cvc={data.cvc} />
         </div>
-        <div className="relative z-10 md:-left-10 md:max-w-96" >
+        <div className="relative z-10 md:-left-10 md:max-w-96 w-fit -left-10" >
           <FrontCard className='' name={data.name} cardNumber={data.cardNumber} expDate={`${data.expDate.mounth}/${data.expDate.year}`} />
         </div>
       </div>

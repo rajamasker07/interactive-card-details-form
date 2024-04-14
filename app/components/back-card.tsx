@@ -9,10 +9,12 @@ type props = {
 
 export default function BackCard({cvc = 123, className}: props) {
   return (
-    <div id='backCard' className={`flex w-full ${className}`} >
+    <div id='backCard' className={`flex w-fit ${className}`} >
       <div className="relative">
         <Image src={bgCardBack} alt='bg card back' className='w-full' />
-        <h5 className='flex w-full text-right md:top-[45%] top-[40%] z[11] absolute place-content-end md:px-10 px-6 text-gray-800 text-sm font-bold' >{cvc}</h5>
+        <div className='flex absolute top-0 px-[10%] place-content-end z-[12] w-full'>
+          <h5 className='text-sm mt-[30%] text-grey-800 font-bold'>{cvc}</h5>
+        </div>
       </div>
     </div>
   )
