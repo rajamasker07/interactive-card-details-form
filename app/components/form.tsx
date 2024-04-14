@@ -35,7 +35,7 @@ export default function Form( { dataOnChange }: formProps ) {
         </div>
         <FieldCVC label='cvc' register={register} errors={errors} name='CVC'/>
       </div>
-      <input type="submit" value="submit" className='flex w-full bg-[#1F0A31] text-white rounded-md py-3 uppercase font-bold text-center cursor-pointer' />
+      <input type="submit" value="submit" className='flex w-full bg-[#1F0A31] text-white rounded-md py-3 uppercase font-bold text-center cursor-pointer justify-center' />
     </form>
   )
 }
